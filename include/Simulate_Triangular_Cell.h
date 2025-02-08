@@ -8,14 +8,15 @@
 #include <unordered_map>
 #include <utility> // for std::pair>
 #include <boost\functional\hash.hpp>
-#include "Grid.h"
+//#include "Adaptive_Verlet.h"
+//#include "Grid.h"
 
 
 
-void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, float dt, const float e0, const float s0, 
-                                   float ro, float ri, std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid) {
+void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, double dt, const double e0, const double s0, 
+                                   double ro, double ri, std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid) {
     
-    float cutoffRadius = 3*pow(2, 1.0/6.0) * s0;
+    double cutoffRadius = 3.1*pow(2, 1.0/6.0) * s0;
     size_t numParticles = particles.size();
     //float CELL_SIZE = cutoffRadius;
 
@@ -25,7 +26,7 @@ void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, 
     }
 
     // 重置能量值
-    energy.reset(); // 确保能量在每次模拟时都从零开始
+    //energy.reset(); // 确保能量在每次模拟时都从零开始
 
     
 
@@ -35,8 +36,8 @@ void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, 
     // 将粒子放入网格
     grid.clear();
     for (size_t i = 0; i < numParticles; ++i) {
-        auto gridIndex = std::make_pair(static_cast<int>(floor(particles[i].position.x / cutoffRadius)), 
-                                         static_cast<int>(floor(particles[i].position.y / cutoffRadius)));
+        auto gridIndex = std::make_pair(static_cast<int>(round(particles[i].position.x / cutoffRadius)), 
+                                         static_cast<int>(round(particles[i].position.y / cutoffRadius)));
         grid[gridIndex].push_back(i);
     }
 
@@ -60,7 +61,7 @@ void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, 
         for (size_t i = 0; i < particleIndices.size(); ++i) {
 
             int indexA = particleIndices[i];
-            energy.totalEk += Ek(particles[indexA]); // 计算并累加动
+            //energy.totalEk += Ek(particles[indexA]); // 计算并累加动
         
             
                              
@@ -82,15 +83,15 @@ void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, 
                         if (particles[indexA].position.length() < ro && particles[indexB].position.length() < ro ) {
                             particles[indexA].applyForce(force);
                             particles[indexB].applyForce(-force);
-                            energy.totalEp +=Ep1(particles[indexA], particles[indexB], e0, s0);
+                            //energy.totalEp +=Ep1(particles[indexA], particles[indexB], e0, s0);
                         } 
                         else if (particles[indexA].position.length() < ro) {
                             particles[indexA].applyForce(force); 
-                            energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
+                            //energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
                         }
                         else if(particles[indexB].position.length() < ro){
                             particles[indexB].applyForce(-force);
-                            energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
+                            //energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
                         }
                         else {
                             continue;
@@ -98,15 +99,16 @@ void simulate_triangular_cell(std::vector<Particle>& particles, Energy& energy, 
                     }
                 }
             }
-        //energy.totalEk += Ek(particles[indexA]); 
+        
         }
     }
 
     // 更新粒子位置
     for (auto& particle : particles) {
         particle.update(dt);
-        //energy.totalEk += Ek(particle); 
+
     }
+    //adpaptive_verlet(particles, dt,tolerence, dt_min, dt_max);
 }
 
 #endif

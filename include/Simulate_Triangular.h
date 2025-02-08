@@ -8,7 +8,7 @@
 #include "Constrain_Elastic.h"
 
 
-void simulate_triangular(std::vector<Particle>& particles, Energy& energy, float dt, const float e0, const float s0, float ro, float ri,float k0) {
+void simulate_triangular(std::vector<Particle>& particles, Energy& energy, double dt, const double e0, const double s0, double ro, double ri,double k0) {
     size_t numParticles = particles.size();
     
     // 清空所有粒子的加速度
@@ -17,12 +17,12 @@ void simulate_triangular(std::vector<Particle>& particles, Energy& energy, float
     }
 
     // 重置能量值
-    energy.reset(); // 确保能量在每次模拟时都从零开始
+    //energy.reset(); // 确保能量在每次模拟时都从零开始
 
     // 计算粒子之间的引力
     for (size_t i = 0; i < numParticles; ++i) {
         
-        energy.totalEk += Ek(particles[i]); // 计算并累加动能
+        //energy.totalEk += Ek(particles[i]); // 计算并累加动能
         //Vec2 f_d_i = DissipativeForce(particles[i],k);
         //Vec2 Fk = constrainParticlesElastic(particles[i],ri,k0);
         for (size_t j = i + 1; j < numParticles; ++j) {
@@ -35,13 +35,13 @@ void simulate_triangular(std::vector<Particle>& particles, Energy& energy, float
             if (particles[i].position.length() < ro && particles[j].position.length() < ro) {
                 particles[i].applyForce(force );
                 particles[j].applyForce(-force ); // 反向作用力
-                energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
+                //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
             } else if (particles[i].position.length() < ro) {
                 particles[i].applyForce(force);
-                energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
+                //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
             } else if (particles[j].position.length() < ro) {
                 particles[j].applyForce(-force);
-                energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
+                //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
             }
             
            

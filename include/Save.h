@@ -5,7 +5,7 @@
 #include "Energy.h"
 
 
-void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, const std::string& filename, bool append = true) {
+void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, double t, const std::string& filename, bool append = true) {
     std::ofstream file;
 
     // 根据 append 参数决定是打开为追加模式还是覆盖模式
@@ -24,14 +24,15 @@ void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, con
     }
 
     for (size_t i = 0; i < particles.size(); ++i) {
-        file << i << "," // 假设 i 是步数，可以根据您的实际情况更改
+        file << i << "," 
              << particles[i].position.x << ","
              << particles[i].position.y << ","
-             << energy.totalEk << ","   // 动能
-             << energy.totalEp << ","   // 势能
-             << (energy.totalEk + energy.totalEp) << "," // 总能量
+             << energy.totalEk << ","   
+             << energy.totalEp << ","   
+             << (energy.totalEk + energy.totalEp) << "," 
              << particles[i].velocity.x << ","
-             << particles[i].velocity.y << "\n";
+             << particles[i].velocity.y << ","
+             <<t << "\n";
     }
 
     file.close();

@@ -6,7 +6,7 @@
 #include <cmath>
 
 struct Vec2 {
-    float x, y;
+   double x, y;
 
     Vec2 operator+=(const Vec2& other) {
         x += other.x;
@@ -14,7 +14,7 @@ struct Vec2 {
         return *this;
     }
 
-    Vec2 operator*(float scalar) const {
+    Vec2 operator*(double scalar) const {
         return {x * scalar, y * scalar};
     }
 
@@ -23,17 +23,17 @@ struct Vec2 {
     }
     
 
-    float length() const {
+   double length() const {
         return std::sqrt(x * x + y * y);
     }
 
     Vec2 normalized() const {
-        float len = length();
+        double len = length();
         return (len > 0) ? Vec2{x / len, y / len} : Vec2{0, 0};
     }
 
     // 构造函数
-    Vec2(float x = 0, float y = 0) : x(x), y(y) {}
+    Vec2(double x = 0, double y = 0) : x(x), y(y) {}
 
     // 重载负号运算符
     Vec2 operator-() const {

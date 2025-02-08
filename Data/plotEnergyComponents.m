@@ -11,17 +11,17 @@ function plotEnergyComponents(filename, t_start,t_end,t_total,t_interval)
     Ek = LJ1(size(LJ1, 1) / numFrames_total * numFrames_t_start+1 :size(LJ1, 1) / numFrames_total:size(LJ1, 1) / numFrames_total * numFrames_t_end , 4);
     Ep = LJ1(size(LJ1, 1) / numFrames_total * numFrames_t_start+1 :size(LJ1, 1) / numFrames_total:size(LJ1, 1) / numFrames_total * numFrames_t_end , 5);
     Et = LJ1(size(LJ1, 1) / numFrames_total * numFrames_t_start+1 :size(LJ1, 1) / numFrames_total:size(LJ1, 1) / numFrames_total * numFrames_t_end , 6);
-
+    %Et = Ek+Ep;
     % 计算总能量的标准差并显示
     StdE = std(Et);
     disp(['Standard Deviation of Total Energy: ', num2str(StdE)]);
     
     % 生成时间向量
-    t = linspace(t_start, t_end, round((t_end-t_start)/t_interval));
-    
+    %t = linspace(t_start, t_end, round((t_end-t_start)/t_interval));
+    t= LJ1(size(LJ1, 1) / numFrames_total * numFrames_t_start+1 :size(LJ1, 1) / numFrames_total:size(LJ1, 1) / numFrames_total * numFrames_t_end , 9);
     
     % 创建图形
-    figure(6);
+    figure(5);
     clf;
     plot(t, Ek, 'DisplayName', 'Ek'); hold on;
     plot(t, Ep, 'DisplayName', 'Ep');

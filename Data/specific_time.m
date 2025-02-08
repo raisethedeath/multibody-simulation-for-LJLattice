@@ -1,7 +1,7 @@
 %% Draw the state of the specified moment %%
 % 定义参数
 ri0 = 5;
-ro = 20;
+ro = 10;
 A = 0.1;
 e0= 1;
 t0 = 1;
@@ -10,17 +10,17 @@ v0=sqrt(e0);
 v=0.2*v0;
 
 t_t = 2*t0;
-t_total = 10*t0;
+t_total = 5*t0;
 t_interval = 0.1*t0;
 
-t= 7.8;%指定的时刻
+t= 0.1;%指定的时刻
 t_frame = t/t_interval+1;
 
 numFrames = t_total/t_interval+1; % 时间点
 
 % 读取 CSV 文件并转换为矩阵
-%LJ1 = readmatrix('energy_conservation/cell,ri=5,ro=20,v=0.2,t_tot=10,dt=0.0001.csv ');
-LJ1 = readmatrix('pendulum/Maybe right,Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv');
+LJ1 = readmatrix('energy_conservation/conservation, adaptive ,cell,ri=5,ro=10,dt=0.0001,t=0.5,v=0.5,t_tot=5,interval=0.1.csv ');
+%LJ1 = readmatrix('pendulum/Maybe right,Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv');
 %LJ1 = readmatrix('dissipative_pendulum/Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05.csv');
 % 设置视频写入对象
 %v = VideoWriter('Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05'); % 视频文件名

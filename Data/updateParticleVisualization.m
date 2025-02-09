@@ -83,7 +83,7 @@ function updateParticleVisualization(LJ1, t, numFrames, ro, theta)
     scatter(timeData(:, 2), timeData(:, 3), 10, colors, 'filled'); % 使用 scatter 函数绘制并填充颜色
     % 绘制速度向量
     %quiver(timeData(nonZeroIndices, 2), timeData(nonZeroIndices, 3), u(nonZeroIndices), v(nonZeroIndices), 'grey', 'LineWidth', 0.3);
-    quiver(timeData(:, 2), timeData(:, 3), timeData(:, 7), timeData(:, 8), 'Color', [0.5, 0.5, 0.5],'LineWidth', 0.3); % 速度向量
+    quiver(timeData(:, 2), timeData(:, 3), timeData(:, 7), timeData(:, 8), 'Color', [0.5, 0.5, 0.5],'LineWidth', 0.5); % 速度向量
     %quiver(timeData(:, 2), timeData(:, 3), dislocation(:,1), dislocation(:,2), 'Color', [0,0,0],'LineWidth', 1.0); % 位错向量
     % 绘制圆形
     plot(x2, y2, 'green', 'LineWidth', 1); 

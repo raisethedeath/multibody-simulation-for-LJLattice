@@ -25,7 +25,7 @@ int main(){
     const float v = v0; 
 
     // 生成粒子
-    std::vector<Particle> particles = generateTriangularLattice(rows, cols, s0, ri, ro);
+    std::vector<Particle> particles = generateTriangularLattice(rows, cols, s0, ri, ro,m);
     std::string folderPath = "Data/pendulum/"; // 指定文件夹
     std::string fileName = folderPath + "1.csv"; 
    

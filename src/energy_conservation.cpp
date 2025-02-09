@@ -39,6 +39,7 @@ int main() {
 
     // form particle triangular distribution
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro,m);
+    std::vector<Particle> particles0 = particles;
     std::string folderPath = "D:/code/mutibody/Data/energy_conservation/"; // 指定文件夹
     //std::string fileName = folderPath + "Modified,v=1v0,t=0.5,ri=5,ro=15,t_t=0.001,dt=0.0005.csv "; 
     std::string fileName = folderPath + "conservation ,ri=5,ro=15,dt=0.0001,t=1,v=0.5,t_tot=5,interval=0.1.csv "; 
@@ -63,12 +64,12 @@ int main() {
         
         if (t<= ti){
             ri = ri0 + v*t;
-            constrainParticles(particles, ri,ro);
-            simulate_triangular(particles,energy, dt, e0, s0,ro,ri,k0);
+            constrainParticles(particles, ri);
+            simulate_triangular(particles,particles0 ,energy, dt, e0, s0,ro,ri,k0);
             
         }
         if (t> ti){
-            simulate_triangular(particles,energy, dt, e0, s0,ro,ri,k0);
+            simulate_triangular(particles,particles0, energy, dt, e0, s0,ro,ri,k0);
             
         }
         
@@ -89,7 +90,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, energy, e0,s0, ro);
+            E_t(particles, particles0, energy, e0,s0, ro);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

@@ -13,10 +13,10 @@ int main() {
 
     int rows = 100;       // 行数
     int cols = 100;       // 列数
-    const double ri0 = 5.0f;     // 内半径
-    double ro = 10.0f;    // 外半径
-    double distance = 1.0f; // 粒子之间的距离
-    double e0 = 1.0f;     // 势能深度
+    const double ri0 = 5.0;     // 内半径
+    double ro = 20.0;    // 外半径
+    double distance = 1.0; // 粒子之间的距离
+    double e0 = 1.0;     // 势能深度
     double s0 = distance*pow(2.0,-1.0/6.0);     // 交互作用的特征长度
     //float k0 = e0/pow(distance,2.0);
 
@@ -29,10 +29,10 @@ int main() {
     //float v0 = pow(e0/m,0.5);
     double v0 = 1.0;
 
-    double total_t = 5.0*t0;
+    double total_t = 10.0*t0;
     //内边界的运动方式
     // 简谐运动
-   double ri = ri0;
+    double ri = ri0;
     const float A = 0.8*ri0; 
     double w = 3.1416;
     //匀速膨胀
@@ -42,17 +42,18 @@ int main() {
     
 
     // 生成粒子
-    std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro,m);
+    std::vector<Particle> particles0 = generateTriangularLattice(rows, cols, distance, ri, ro,m);
+    std::vector<Particle> particles = particles0;
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
     std::string folderPath = "D:/code/mutibody/Data/energy_conservation/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
-    std::string fileName = folderPath + "conservation, adaptive ,cell,ri=5,ro=10,dt=0.0001,t=0.5,v=0.5,t_tot=5,interval=0.1.csv";  
+    std::string fileName = folderPath + "conservation, cell,ri=5,ro=20,dt=0.0002,ti=0.5,v=1,t_tot=10,interval=0.1.csv";  
     
     Energy energy; // 创建 Energy 实例
 
     // 模拟参数
-    double dt = 0.0005*t0;
+    double dt = 0.0002*t0;
     double ti = 0.5*t0;
     double t = 0.0;
     double intervals = 0.1*t0; //保存数据的时间间隔
@@ -69,13 +70,15 @@ int main() {
         
         if (t<= ti){
             ri = ri0 + v*t;
-            constrainParticles(particles, ri,ro);
-            simulate_triangular_cell(particles,energy, dt, e0, s0,ro,ri,grid);
+            constrainParticles(particles, ri);
+            simulate_triangular_cell(particles,particles0, energy, dt, e0, s0,ro,ri,grid);
             //constrainParticles(particles, ri,ro);
             
         }
         if (t > ti){
-            simulate_triangular_cell(particles,energy, dt,  e0, s0,ro,ri,grid);
+            //ri = 0.0;
+            //constrainParticles(particles, 0.0,ro);
+            simulate_triangular_cell(particles, particles0, energy, dt,  e0, s0,ro,ri,grid);
             
         }
         //adpaptive_verlet(particles, dt, tolerence, dt_min, dt_max);
@@ -99,7 +102,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, energy, e0,s0, ro);
+            E_t(particles, particles0, energy, e0,s0, ro);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

@@ -8,7 +8,7 @@
 #include "Constrain_Elastic.h"
 
 
-void simulate_triangular(std::vector<Particle>& particles, Energy& energy, double dt, const double e0, const double s0, double ro, double ri,double k0) {
+void simulate_triangular(std::vector<Particle>& particles, std::vector<Particle> particles0, Energy& energy, double dt, const double e0, const double s0, double ro, double ri,double k0) {
     size_t numParticles = particles.size();
     
     // 清空所有粒子的加速度
@@ -32,14 +32,14 @@ void simulate_triangular(std::vector<Particle>& particles, Energy& energy, doubl
             //Vec2 Fkj = constrainParticlesElastic(particles[j],ri,k0);
             //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
             
-            if (particles[i].position.length() < ro && particles[j].position.length() < ro) {
+            if (particles0[i].position.length() < ro && particles0[j].position.length() < ro) {
                 particles[i].applyForce(force );
                 particles[j].applyForce(-force ); // 反向作用力
                 //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
-            } else if (particles[i].position.length() < ro) {
+            } else if (particles0[i].position.length() < ro) {
                 particles[i].applyForce(force);
                 //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
-            } else if (particles[j].position.length() < ro) {
+            } else if (particles0[j].position.length() < ro) {
                 particles[j].applyForce(-force);
                 //energy.totalEp += Ep1(particles[i], particles[j], e0, s0);
             }

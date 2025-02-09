@@ -14,9 +14,7 @@ Vec2 constrainParticlesElastic(const Particle& a, float ri,float k0) {
             return direction*(ri-a.position.length())*k0;
             
         }
-        else{
-            return {0,0};
-        }
+        
        
             
         

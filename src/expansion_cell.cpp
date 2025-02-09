@@ -39,6 +39,7 @@ int main() {
 
     // 生成粒子
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro, m);
+    std::vector<Particle> particles0 = particles;
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
     std::string folderPath = "D:/code/mutibody/Data/expansion/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
@@ -61,8 +62,8 @@ int main() {
         
 
         ri = ri0 + v*t;
-        constrainParticles(particles, ri,ro);
-        simulate_triangular_cell(particles,energy, dt, e0, s0,ro,ri,grid);
+        constrainParticles(particles, ri);
+        simulate_triangular_cell(particles,particles0, energy, dt, e0, s0,ro,ri,grid);
         
         
         
@@ -71,7 +72,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, energy, e0,s0, ro);
+            E_t(particles,particles0, energy, e0,s0, ro);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     

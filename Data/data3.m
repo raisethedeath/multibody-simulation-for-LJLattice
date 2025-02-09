@@ -1,6 +1,6 @@
 % 定义参数
 ri0 = 5;
-ro =10;
+ro =20;
 A = 0.15;
 e0= 1;
 t0 =1;
@@ -9,7 +9,7 @@ v0=sqrt(e0);
 ve=1*v0;
 
 t_t = 2*t0;
-t_total = 5*t0;
+t_total = 10*t0;
 t_interval = 0.1*t0;
 
 
@@ -20,13 +20,13 @@ numFrames = t_total/t_interval+1; % 时间点
 %LJ1 = readmatrix('dissipative_pendulum/Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05.csv');
 %LJ1 = readmatrix('pendulum/Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv');
 %LJ1 = readmatrix('energy_conservation/test, cell, static, t_interval=0.01,dt=0.0005,ri=5,ro=15,t_total=2.csv ');
-LJ1 = readmatrix('energy_conservation/conservation, adaptive ,cell,ri=5,ro=10,dt=0.0001,t=0.5,v=0.5,t_tot=5,interval=0.1.csv');
+LJ1 = readmatrix('energy_conservation/conservation, cell,ri=5,ro=20,dt=0.0002,ti=0.5,v=1,t_tot=10,interval=0.1.csv');
 %LJ1 = readmatrix("expansion\cell,ri=5,ro=20,v=0.2,t_tot=10,interval=0.1,dt=0.00005.csv");
 % 设置视频写入对象
 %v = VideoWriter('Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05'); % 视频文件名
-v= VideoWriter('conservation, adaptive ,cell,ri=5,ro=10,dt=0.0001,t=0.5,v=0.5,t_tot=5,interval=0.1');
+v= VideoWriter('Video/conservation/conservation, cell,ri=5,ro=20,dt=0.0002,ti=0.5,v=1,t_tot=10,interval=0.1');
 %v = VideoWriter('Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv'); % 视频文件名
-v.FrameRate = 2; % 根据需要调整帧率
+v.FrameRate = 5; % 根据需要调整帧率
 open(v); % 打开视频文件进行写入
 
 % 获取所有唯一的时间值

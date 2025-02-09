@@ -40,7 +40,7 @@ int main() {
     // 生成粒子
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro, m);
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
-    std::string folderPath = "Data/expansion/"; // 指定文件夹
+    std::string folderPath = "D:/code/mutibody/Data/expansion/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
     std::string fileName = folderPath + "cell,ri=5,ro=20,v=0.2,t_tot=10,interval=0.1,dt=0.00005.csv";  

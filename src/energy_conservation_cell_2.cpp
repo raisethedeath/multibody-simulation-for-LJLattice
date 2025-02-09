@@ -44,7 +44,7 @@ int main() {
     // 生成粒子
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro,m);
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
-    std::string folderPath = "Data/energy_conservation/"; // 指定文件夹
+    std::string folderPath = "D:/code/mutibody/Data/energy_conservation/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
     std::string fileName = folderPath + "conservation, adaptive ,cell,ri=5,ro=10,dt=0.0001,t=0.5,v=0.5,t_tot=5,interval=0.1.csv";  

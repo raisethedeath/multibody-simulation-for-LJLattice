@@ -40,5 +40,4 @@ This file plays a vital role in the program as it combined the functions and cla
 
 We first divide cells by integer division of its coordinates using cut-off radius. Then ergodic cells containing particles and ergodic particles denoted by **IndexA**  in that specific cell with particles denoted by **IndexB** in its pair cell in **Neighbor_Index**, and compute the kinetic, L-J forces and L-J potentials between **IndexA** and **IndexB**. Note that as each particle will be ergodiced in the whole process, the L-J potentials are multipy with $0.5$. The **Neighbor_Index** is constructed by combining the specific cell and **offset**.
 
-| 
 

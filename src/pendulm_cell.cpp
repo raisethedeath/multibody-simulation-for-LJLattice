@@ -14,10 +14,10 @@ int main() {
 
     int rows = 100;       // 行数
     int cols = 100;       // 列数
-    const double ri0 = 5.0f;     // 内半径
-    double ro = 20.0f;    // 外半径
-    double distance = 1.0f; // 粒子之间的距离
-    double e0 = 1.0f;     // 势能深度
+    const double ri0 = 5.0;     // 内半径
+    double ro = 20.0;    // 外半径
+    double distance = 1.0; // 粒子之间的距离
+    double e0 = 1.0;     // 势能深度
     double s0 = distance*pow(2,-1.0/6.0);     // 交互作用的特征长度
     
 
@@ -41,18 +41,22 @@ int main() {
 
     // 生成粒子
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, s0, ri, ro,m);
-    std::vector<Particle> particles0 = particles;
+    //std::vector<Particle> particles0 = particles;
     std::string folderPath = "Data/pendulum/"; // 指定文件夹
     std::string fileName = folderPath + "Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv "; 
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
 
     Energy energy; // 创建 Energy 实例
 
+    for (auto& particle :particles){
+        particle.fix_state(ro);
+    }
+
     // 模拟参数
     double dt = 0.0001*t0;
     //double steps = total_t/dt;
-    double t_interval = 0.0;
-    double t = 1*t0;
+    double t_interval = -dt;
+    double t = 0.0;
     double intervals = 0.1*t0; //保存数据的时间间隔
     //int num_intervals = intervals/dt;
 
@@ -64,7 +68,7 @@ int main() {
             ri = ri0 +A- A*std::cos(w*t);
             //simulate_triangular(particles,energy, dt, e0, s0,ro,ri,k0);
             constrainParticles(particles, ri);
-            simulate_triangular_cell(particles,particles0, energy, dt, e0, s0,ro,ri,grid);
+            simulate_triangular_cell(particles, energy, dt, e0, s0,ro,ri,grid);
        
 
         //simulate_triangular(particles,energy, dt, e0, s0,ro,ri);
@@ -74,7 +78,7 @@ int main() {
          if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, particles0, energy, e0,s0, ro);
+            E_t(particles,  energy, e0,s0, ro);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

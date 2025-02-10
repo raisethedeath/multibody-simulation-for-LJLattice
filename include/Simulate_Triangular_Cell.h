@@ -13,7 +13,7 @@
 
 
 
-void simulate_triangular_cell(std::vector<Particle>& particles, std::vector<Particle> particles0, Energy& energy, double dt, const double e0, const double s0, 
+void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy, double dt, const double e0, const double s0, 
                                    double ro, double ri, std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid) {
     
     double cutoffRadius = 3.0*pow(2, 1.0/6.0) * s0;
@@ -80,16 +80,16 @@ void simulate_triangular_cell(std::vector<Particle>& particles, std::vector<Part
 
                         Vec2 force = LJForce(particles[indexA], particles[indexB], e0, s0);
 
-                        if (particles0[indexA].position.length() < ro && particles0[indexB].position.length() < ro ) {
+                        if (particles[indexA].state && particles[indexB].state ) {
                             particles[indexA].applyForce(force);
                             particles[indexB].applyForce(-force);
                             //energy.totalEp +=Ep1(particles[indexA], particles[indexB], e0, s0);
                         } 
-                        else if (particles0[indexA].position.length() < ro) {
+                        else if (particles[indexA].state) {
                             particles[indexA].applyForce(force); 
                             //energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
                         }
-                        else if(particles0[indexB].position.length() < ro){
+                        else if(particles[indexB].state){
                             particles[indexB].applyForce(-force);
                             //energy.totalEp += Ep1(particles[indexA], particles[indexB], e0, s0);
                         }

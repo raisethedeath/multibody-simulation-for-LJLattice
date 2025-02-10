@@ -23,7 +23,7 @@ Characteristic temporal and velocity scales are: $\tau_0 = \sqrt{\frac{ml_0^2}{\
 	|		└──Simulate_Triangular_Cell.h
 	├── /bin/ //.exe
 	├──/Data/ //.csv
-	|/src/
+	└──/src/
 		├── energy_conservation.cpp
 		├── energy_conservation_cell.cpp
 		└── expansion_cell.cpp

@@ -13,7 +13,7 @@ public:
     //Vec2 newVelocity; 
     //double error;
     double mass;
-    
+    bool state;
 
     
     Particle(Vec2 pos, Vec2 prevPos, double m) 
@@ -38,7 +38,15 @@ public:
         // 重置加速度
         acceleration = {0.0, 0.0};
     }
-
+    
+    void fix_state (double ro){
+        if (position.length() >= ro){
+            state = false;
+        }
+        else {
+            state = true;
+        }
+    }
     
 };
 #endif 

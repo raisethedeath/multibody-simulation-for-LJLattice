@@ -79,14 +79,14 @@ double Ek_t(std::vector<Particle>& particles){
     
 }
 
-void E_t(std::vector<Particle>& particles, std::vector<Particle> particles0,  Energy& energy, const float e0, const float s0, const float ro){
+void E_t(std::vector<Particle>& particles,  Energy& energy, const float e0, const float s0, const float ro){
     int numParticles = particles.size();
     double Ep_t = 0.0;
     double Ek_t = 0.0;
     for (size_t i = 0; i < numParticles; ++i) {
         Ek_t += Ek(particles[i]);
         for (size_t j = i + 1; j < numParticles; ++j) {           
-                if (particles0[i].position.length()>=ro && particles0[j].position.length()>=ro )
+                if (particles[i].state==false && particles[j].state==false )
             {
                 continue;
             }

@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                
+                "${workspaceFolder}/include/**",  // 添加 include 文件夹的路径
+                "D:/vcpkg/installed/x64-windows/include/**",
+                "${workspaceFolder}/**",
+                "${workspaceFolder}"
+            ],
+            "defines": [],
+            "compilerPath": "D:/CPPSettings/mingw64/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

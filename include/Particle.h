@@ -15,6 +15,7 @@ public:
     double mass;
     double radius;     //到原点的距离
     bool state;
+    bool out_state;
     //bool ela_state;
 
     
@@ -40,14 +41,25 @@ public:
         
         // 重置加速度
         acceleration = {0.0, 0.0};
+        
     }
     
     void fix_state (double ro){
-        if (position.length() >= ro){
+        radius = position.length();
+        if (radius >= ro){
             state = false;
         }
         else {
             state = true;
+        }
+    }
+
+    void change_out_state(double ro){
+        if (radius >ro+5){
+            out_state = true;
+        }
+        else {
+            out_state = false;
         }
     }
     // void Ela_state(double ri, double length){

@@ -20,7 +20,7 @@ numFrames = t_total/t_interval+1; % 时间点
 
 % 读取 CSV 文件并转换为矩阵
 %LJ1 = readmatrix('energy_conservation/conservation, cell,ri=5,ro=20,dt=0.0005,ti=0.5,v=1,t_tot=10,interval=0.1.csv');
-LJ1 = readmatrix("expansion\elastic bound,cell,ri=5,ro=20,v=1,t_tot=10,interval=0.1,dt=0.00002.csv");
+LJ1 = readmatrix("expansion\elastic bound,cell,ri=5,ro=20,v=0.1,t_tot=100,interval=1,dt=0.001.csv");
 %LJ1 = readmatrix('pendulum/Maybe right,Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv');
 %LJ1 = readmatrix('dissipative_pendulum/Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05.csv');
 % 设置视频写入对象

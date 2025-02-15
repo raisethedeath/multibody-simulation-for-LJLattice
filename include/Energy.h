@@ -11,6 +11,7 @@ class Energy {
 public:
     double totalEp; // 总势能
     double totalEk; // 总动能
+    int out_state; //判断是否有粒子逃逸
 
     Energy() : totalEp(0.0f), totalEk(0.0f) {} // 初始化
 
@@ -79,10 +80,11 @@ double Ek_t(std::vector<Particle>& particles){
     
 }
 
-void E_t(std::vector<Particle>& particles,  Energy& energy, const double e0, const double s0, double ri, const double k0){
+void E_t(std::vector<Particle>& particles,  Energy& energy, const double e0, const double s0, double ri, double ro, const double k0){
     int numParticles = particles.size();
     double Ep_t = 0.0;
     double Ek_t = 0.0;
+    int out_state = 0;
     for (size_t i = 0; i < numParticles; ++i) {
         Ek_t += Ek(particles[i]);
         //double length = particles[i].position.length();
@@ -91,6 +93,10 @@ void E_t(std::vector<Particle>& particles,  Energy& energy, const double e0, con
         }
         else {
             Ep_t +=0.0;
+        }
+        if (particles[i].radius > ro+6.0){
+            out_state +=1;
+
         }
         for (size_t j = i + 1; j < numParticles; ++j) {           
                 if (particles[i].state==false && particles[j].state==false )
@@ -106,6 +112,7 @@ void E_t(std::vector<Particle>& particles,  Energy& energy, const double e0, con
     }
     energy.totalEp = Ep_t;
     energy.totalEk =Ek_t;
+    energy.out_state = out_state;
 }
 
 #endif 

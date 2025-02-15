@@ -2,8 +2,13 @@ function updateParticleVisualization(LJ1, t, numFrames, ro, theta)
     % 确定当前时间的数据索引
     numParticles = round(size(LJ1, 1) / (numFrames));
     colors = zeros(numParticles, 3); % 初始化颜色矩阵
+    measure = zeros(numParticles,1);
     startIdx = (t-1) * numParticles + 1;
     endIdx = min(t * numParticles, size(LJ1, 1)); % 确保不超出矩阵范围
+    g=0;
+    b=0;
+    r=0;
+    y=0;
     
     % 提取当前时间的颗粒位置
     timeData = LJ1(startIdx:endIdx, :);
@@ -57,16 +62,26 @@ function updateParticleVisualization(LJ1, t, numFrames, ro, theta)
         switch neighborCounts(i)
             case 4
                 colors(i, :) = [0, 1, 0]; % 绿色
+                measure(i)=20;
+                g=g+1;
             case 7
                 colors(i, :) = [0, 0, 1]; % 蓝色
+                measure(i)=20;
+                b=b+1;
             case 6
                 colors(i, :) = [0.5, 0.5, 0.5]; % 灰色
+                measure(i)=10;
             case 5
                 colors(i, :) = [1, 0, 0]; % 红色
+                measure(i)=20;
+                r=r+1;
             case 8
                 colors(i, :) = [1, 1, 0]; % 黄色
+                measure(i)=20;
+                y=y+1;
             otherwise
                 colors(i, :) = [0.5, 0, 0]; % 深红
+                measure(i)=20;
         end
     end
 
@@ -80,7 +95,7 @@ function updateParticleVisualization(LJ1, t, numFrames, ro, theta)
     hold on;
 
     % 绘制颗粒
-    scatter(timeData(:, 2), timeData(:, 3), 10, colors, 'filled'); % 使用 scatter 函数绘制并填充颜色
+    scatter(timeData(:, 2), timeData(:, 3), measure, colors, 'filled'); % 使用 scatter 函数绘制并填充颜色
     % 绘制速度向量
     %quiver(timeData(nonZeroIndices, 2), timeData(nonZeroIndices, 3), u(nonZeroIndices), v(nonZeroIndices), 'grey', 'LineWidth', 0.3);
     %{
@@ -89,16 +104,19 @@ function updateParticleVisualization(LJ1, t, numFrames, ro, theta)
     colors = cmap; % 生成色图矩阵
     color_indices = round((hv+ 5) / 10 * 255) + 5;
     %color_indices()
+    %{
     for i = 1:numParticles
     quiver(timeData(:, 2), timeData(:, 3), timeData(:, 7), timeData(:, 8), 'LineWidth',2, ... % 0.5为箭头缩放比例
         'Color', colors(color_indices(i), :), ...
         'AutoScale', 'off');
     end
+    %}
     colormap(cmap);
     colorbar;
     %}
-    quiver(timeData(:, 2), timeData(:, 3), timeData(:, 7), timeData(:, 8), 'Color', [0.5, 0.5, 0.5],'LineWidth', 0.5); % 速度向量
-    quiver(timeData(:, 2), timeData(:, 3), dislocation(:,1), dislocation(:,2), 'Color', [0,0,0],'LineWidth', 0.8); % 位错向量
+    %quiver(timeData(:, 2), timeData(:, 3), timeData(:, 7), timeData(:, 8), 'Color', [0.5, 0.5, 0.5],'LineWidth', 0.5); % 速度向量
+    quiver(timeData(:, 2), timeData(:, 3), 2*dislocation(:,1), 2*dislocation(:,2), 'Color', [0,0,0],'LineWidth', 1,'MaxHeadSize',1); % 位错向量
+    %quiver(timeData(:, 2), timeData(:, 3), dislocation(:,1), dislocation(:,2), 'Color', colors(color_indices, :),'LineWidth', 0.8); % 位错向量
     % 绘制圆形
     plot(x2, y2, 'green', 'LineWidth', 1);
     

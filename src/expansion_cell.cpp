@@ -24,16 +24,16 @@ int main() {
     double m =1.0;
 
     double t0 = 1.0;
-    double v0 = 4.0;
+    double v0 = 1.0;
 
-    double total_t = 2.5*t0;
+    double total_t = 1000.0*t0;
     //内边界的运动方式
     // 简谐运动
     double ri = ri0;
     const double A = 0.8*ri0; 
     double w = 3.1416;
     //匀速膨胀
-    const double v =1.0* v0; 
+    const double v =0.01* v0; 
     double k0 = 1e4;
 
 
@@ -46,7 +46,7 @@ int main() {
     std::string folderPath = "D:/code/multibody-simulation-for-LJLattice/Data/expansion/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
-    std::string fileName = folderPath + "elastic bound,cell,ri=5,ro=20,v=4,t_tot=2.5,interval=0.025,dt=0.00005.csv";  
+    std::string fileName = folderPath + "elastic bound,cell,ri=5,ro=20,v=0.01,t_tot=1000,interval=5,k=1e4,dt=0.002.csv";  
     
     Energy energy; // 创建 Energy 实例
 
@@ -55,10 +55,10 @@ int main() {
     }
 
     // 模拟参数
-    double dt = 0.00005*t0;
+    double dt = 0.001*t0;
     double ti = 0.5*t0;
     double t = 0.0;
-    double intervals = 0.025*t0; //保存数据的时间间隔
+    double intervals = 5*t0; //保存数据的时间间隔
     double t_interval = 0.0;
 
 
@@ -78,10 +78,15 @@ int main() {
         if ( t >= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, energy, e0,s0, ri,k0);
-            saveToCSV(particles, energy,t ,fileName, t!=0.0);
+            E_t(particles, energy, e0,s0, ri, ro,k0);
+
+            saveToCSV(particles, energy,t, fileName, t!=0.0);
         }
-    
+    if (energy.out_state >=1){
+        std::cout << "Some particles escape, break the loop!" << std::endl;
+        break;
+        //std::cout << "Some particles escape, break the loop!" << std::endl;
+    }
     }
     DWORD end = GetTickCount();  
     std::cout << "程序运行时间: " << (end - start)/60000 << " min" << std::endl; 

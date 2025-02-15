@@ -29,7 +29,7 @@ int main() {
     //float v0 = pow(e0/m,0.5);
     double v0 = 1.0;
 
-    double total_t = 10.0*t0;
+    double total_t = 30.0*t0;
     //内边界的运动方式
     // 简谐运动
     double ri = ri0;
@@ -49,7 +49,7 @@ int main() {
     std::string folderPath = "D:/code/multibody-simulation-for-LJLattice/Data/energy_conservation/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
-    std::string fileName = folderPath + "relaxation, cell,ri=5,ro=20,dt=0.0004,ti=5,v=2,t_tot=10,interval=0.1.csv";  
+    std::string fileName = folderPath + "relaxation, cell,ri=5,ro=20,dt=0.0004,ti=2,v=1,t_tot=30,interval=0.1.csv";  
     
     Energy energy; // 创建 Energy 实例
 
@@ -59,7 +59,7 @@ int main() {
 
     // 模拟参数
     double dt = 0.0004*t0;
-    double ti = 5*t0;
+    double ti = 2*t0;
     double t = 0.0;
     double intervals = 0.1*t0; //保存数据的时间间隔
     //int num_intervals = intervals/dt;
@@ -81,9 +81,9 @@ int main() {
             
         }
         if (t > ti){
-            double ri = 0.0;
+            //double ri = 7.0;
             //constrainParticles(particles, ri);
-            simulate_triangular_cell(particles,  energy, dt,  e0, s0,k0,ro,0.0,grid);
+            simulate_triangular_cell(particles,  energy, dt,  e0, s0,k0,ro,7.0,grid);
             
         }
         
@@ -94,7 +94,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles,  energy, e0,s0, ri,k0);
+            E_t(particles,  energy, e0,s0, ri,ro,k0);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

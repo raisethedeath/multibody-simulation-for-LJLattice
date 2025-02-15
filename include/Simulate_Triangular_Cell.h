@@ -63,7 +63,12 @@ void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy,
 
             int indexA = particleIndices[i];
             //energy.totalEk += Ek(particles[indexA]); // 计算并累加动
-            particles[indexA].radius = particles[indexA].position.length();
+            //仅对区域内的粒子计算半径，避免重复计算
+            if (particles[indexA].state){
+                particles[indexA].radius = particles[indexA].position.length();
+            }
+            
+            //particles[indexA].radius = particles[indexA].position.length();
             
                              
 
@@ -80,7 +85,10 @@ void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy,
                         if (indexB <= indexA) continue; // 跳过自身
 
                         //Vec2 force = LJForce(particles[indexA], particles[indexB], e0, s0);
-                        particles[indexB].radius = particles[indexB].position.length();
+                        if (particles[indexB].state){
+                            particles[indexB].radius = particles[indexB].position.length();
+                        }
+                        //particles[indexB].radius = particles[indexB].position.length();
                         if (particles[indexA].state && particles[indexB].state ) {
                             Vec2 force = LJForce(particles[indexA], particles[indexB], e0, s0);
                             Vec2 ela_forceA =-constrainParticlesElastic(particles[indexA],ri,k0);
@@ -114,7 +122,6 @@ void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy,
     // 更新粒子位置
     for (auto& particle : particles) {
         particle.update(dt);
-
     }
     //adpaptive_verlet(particles, dt,tolerence, dt_min, dt_max);
 }

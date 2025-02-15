@@ -21,6 +21,8 @@ function plotEnergyComponents(filename, t_start,t_end,t_total,t_interval)
     t= LJ1(size(LJ1, 1) / numFrames_total * numFrames_t_start+1 :size(LJ1, 1) / numFrames_total:size(LJ1, 1) / numFrames_total * numFrames_t_end , 9);
     ymin = min([Ek;Ep;Et]);
     ymax = max([Ek;Ep;Et]);
+    tmin = min(t);
+    tmax = max(t);
     % 创建图形
     figure(5);
     clf;
@@ -37,10 +39,12 @@ function plotEnergyComponents(filename, t_start,t_end,t_total,t_interval)
     % 添加图例和标签
     legend('show');
     ax = gca;
-    ax.YAxis.Exponent = 3;
+    ax.YAxis.Exponent = 2;
     xlabel('$t/\tau_0$ ','interpreter', 'latex', 'FontSize', 10);
     ylabel('$E/\epsilon_0$ ','interpreter', 'latex', 'FontSize', 10);
-    ylim([ymin,ymax*1.3])
+    ylim([ymin,ymax*6])
+    xlim([tmin,tmax]);
+    %axix([xmin xmax]);
     %axis([xmin xmax ymin 1.2*ymax])
 
     title('Energy Components Over Time');

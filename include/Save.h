@@ -5,7 +5,7 @@
 #include "Energy.h"
 
 
-void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, double t, const std::string& filename, bool append = true) {
+void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, double t,const std::string& filename, bool append = true) {
     std::ofstream file;
 
     // 根据 append 参数决定是打开为追加模式还是覆盖模式
@@ -14,7 +14,7 @@ void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, dou
     } else {
         file.open(filename); // 默认是覆盖模式
         // 写入CSV头
-        file << "Step,ParticleID,PositionX,PositionY,Ek,Ep,Et,VelocityX,VelocityY\n";
+        file << "ParticleID,PositionX,PositionY,Ek,Ep,Et,VelocityX,VelocityY,time\n";
     }
 
     // 检查文件是否成功打开
@@ -24,6 +24,12 @@ void saveToCSV(const std::vector<Particle>& particles, const Energy& energy, dou
     }
 
     for (size_t i = 0; i < particles.size(); ++i) {
+        // // if there are particles escape, break the loop
+        // if (particles[i].radius > ro+5.0){
+        //     break;
+        //     std::cout << "Some particles escape, break the loop!" << std::endl;
+
+        // }
         file << i << "," 
              << particles[i].position.x << ","
              << particles[i].position.y << ","

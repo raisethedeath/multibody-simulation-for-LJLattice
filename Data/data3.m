@@ -6,11 +6,11 @@ e0= 1;
 t0 =1;
 w = 3.1416*2/t0;
 v0=sqrt(e0);
-ve=4*v0;
+ve=0.01*v0;
 
 t_t = 2*t0;
-t_total = 2.5*t0;
-t_interval = 0.025*t0;
+t_total = 875*t0;
+t_interval = 5*t0;
 
 
 numFrames = t_total/t_interval+1; % 时间点
@@ -20,12 +20,12 @@ numFrames = t_total/t_interval+1; % 时间点
 %LJ1 = readmatrix('dissipative_pendulum/Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05.csv');
 %LJ1 = readmatrix('pendulum/Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv');
 %LJ1 = readmatrix('energy_conservation/test, cell, static, t_interval=0.01,dt=0.0005,ri=5,ro=15,t_total=2.csv ');
-%LJ1 = readmatrix('energy_conservation/relaxation, cell,ri=5,ro=20,dt=0.0004,ti=5,v=2,t_tot=10,interval=0.1.csv');
-LJ1 = readmatrix('expansion/elastic bound,cell,ri=5,ro=20,v=4,t_tot=2.5,interval=0.025,dt=0.00005.csv');
+%LJ1 = readmatrix('energy_conservation/relaxation, cell,ri=5,ro=20,dt=0.0004,ti=2,v=1,t_tot=30,interval=0.1.csv');
+LJ1 = readmatrix('expansion/elastic bound,cell,ri=5,ro=20,v=0.01,t_tot=1000,interval=5,k=1e4,dt=0.001.csv');
 % 设置视频写入对象
 %v = VideoWriter('Dissipative,k=0.001,A=0.2,w=2,ri=5,ro=15,t=1,t_interval=0.05'); % 视频文件名
-%v= VideoWriter('Video/relaxation/relaxation, cell,ri=5,ro=20,dt=0.0004,ti=5,v=2,t_tot=10,interval=0.1');
-v= VideoWriter('Video/expansion/elastic bound,cell,ri=5,ro=20,v=4,t_tot=2.5,interval=0.025,dt=0.000005');
+v= VideoWriter('Video/expansion/elastic bound,cell,ri=5,ro=20,v=0.01,t_tot=1000,interval=5,k=1e4,dt=0.001');
+%v= VideoWriter('Video/relaxation/relaxation, cell,ri=5,ro=20,dt=0.0004,ti=2,v=1,t_tot=10,interval=0.1');
 %v = VideoWriter('Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv'); % 视频文件名
 v.FrameRate = 2; % 根据需要调整帧率
 open(v); % 打开视频文件进行写入
@@ -49,7 +49,20 @@ for t = 1:numFrames
     %}
     %pendulm
     %r = ri0+A*(1-cos(w*t_interval*(t-1)));
+    %{
     r = ri0 + ve*(t-1)*t_interval;
+    if (r<=7)
+        r = ri0 + ve*(t-1)*t_interval;
+        title(['$r_i=$ ', num2str(r),'$l_0$',', t=',num2str((t-1)*t_interval/t0),'$\tau_0$'],'interpreter', 'latex', 'FontSize', 10);
+    end
+    if (r>7)
+        title(['$r_i=$ ', num2str(7),'$l_0$',', t=',num2str((t-1)*t_interval/t0),'$\tau_0$'],'interpreter', 'latex', 'FontSize', 10);
+    end
+    %}
+
+
+    r = ri0 + ve*(t-1)*t_interval;
+
     title(['$r_i=$ ', num2str(r),'$l_0$',', t=',num2str((t-1)*t_interval/t0),'$\tau_0$'],'interpreter', 'latex', 'FontSize', 10);
     xlabel('X Coordinate');
     ylabel('Y Coordinate');

@@ -6,7 +6,7 @@ e0= 1;
 t0 =1;
 w = 3.1416*2/t0;
 v0=sqrt(e0);
-ve=0.1*v0;
+ve=1*v0;
 
 t_t = 2*t0;
 t_total = 30*t0;
@@ -91,7 +91,7 @@ for t=1:numFrames
                     %measure(i)=25;
                     r(t)=r(t)+1;
                 case 8
-                    %colors(i, :) = [1, 1, 0]; % 黄色
+                    %colors(i, :) = [1, 0.64706, 0]; % 黄色
                     %measure(i)=25;
                     y(t)=y(t)+1;
    
@@ -101,13 +101,14 @@ for t=1:numFrames
     end
 end
 time= LJ1(size(LJ1, 1) / numFrames * numFrames_t_start+1 :size(LJ1, 1) / numFrames:size(LJ1, 1) / numFrames * numFrames_t_end , 9);
-
-figure(2)
+mint=min(time);
+maxt=max(time);
+figure(3)
 clf;
 plot(time,r,'r-^', 'DisplayName', '5','LineWidth',0.5); hold on;
 plot(time,b,'b-s', 'DisplayName', '7','LineWidth',0.5);
-plot(time,y,'-o','DisplayName', '8','LineWidth',0.5,'Color',[1, 0.64706, 0]);
-plot(time,g,'-o','DisplayName','4','LineWidth',0.5,'Color',[0.67843, 1, 0.18431]);
+plot(time,y,'-*','DisplayName', '8','LineWidth',0.5,'Color',[1, 0.64706, 0]);
+plot(time,g,'-o','DisplayName','4','LineWidth',0.5,'Color',[1, 1, 0]);
 legend('show');
 %{
     ax = gca;
@@ -119,6 +120,9 @@ legend('show');
     %}
 
 title('Topological Defects Over Time');
+xlabel('$t/\tau_0$ ','interpreter', 'latex', 'FontSize', 10);
+ylabel('$N_{\alpha}$ ','interpreter', 'latex', 'FontSize', 10);
+xlim([mint,maxt]);
 grid on;
 
    

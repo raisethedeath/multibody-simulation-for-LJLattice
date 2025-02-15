@@ -7,13 +7,13 @@ e0= 1;
 t0 = 1;
 w = 3.1416*2/t0;
 v0=sqrt(e0);
-v=1*v0;
+v=0.1*v0;
 
 t_t = 2*t0;
-t_total = 10*t0;
-t_interval = 0.1*t0;
+t_total = 100*t0;
+t_interval = 1*t0;
 
-t= 10.0;%指定的时刻
+t= 12;%指定的时刻
 t_frame = t/t_interval+1;
 
 numFrames = t_total/t_interval+1; % 时间点

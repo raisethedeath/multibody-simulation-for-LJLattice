@@ -19,7 +19,7 @@ std::vector<Particle> generateTriangularLattice(int rows, int cols, double dista
                 p.x += distance / 2; // 偶数行与奇数行之间的偏移
             }
             // 仅在指定半径内创建粒子
-            if (p.x*p.x + p.y*p.y >= ri*ri && p.x*p.x + p.y*p.y <= (ro+3.5)*(ro+3)) {
+            if (p.x*p.x + p.y*p.y >= ri*ri && p.x*p.x + p.y*p.y <= (ro+4.0)*(ro+4.0)) {
                 particles.emplace_back(p,p,m); // 创建粒子对象并添加到列表
             }
         }

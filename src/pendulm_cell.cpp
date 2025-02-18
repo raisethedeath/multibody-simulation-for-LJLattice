@@ -42,7 +42,7 @@ int main() {
     // 生成粒子
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, s0, ri, ro,m);
     //std::vector<Particle> particles0 = particles;
-    std::string folderPath = "D:/code/multibody-simulation-for-LJLattice/Data/pendulum/"; // 指定文件夹
+    std::string folderPath = "D:/Research Data/Data/pendulum/"; // 指定文件夹
     std::string fileName = folderPath + "Cell,A=0.1,w=2,ri=5,ro=20,t=10,t_interval=0.10,dt=0.0001.csv "; 
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
 
@@ -78,7 +78,7 @@ int main() {
          if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles,  energy, e0,s0, ri, k0);
+            E_t(particles,  energy, e0,s0, ri,ro, k0);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

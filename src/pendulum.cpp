@@ -75,7 +75,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles,  energy, e0,s0, ro);
+            E_t(particles,  energy, e0,s0,ri ,ro,k0);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

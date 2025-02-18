@@ -26,14 +26,14 @@ int main() {
     double t0 = 1.0;
     double v0 = 1.0;
 
-    double total_t = 1000.0*t0;
+    double total_t = 10.0*t0;
     //内边界的运动方式
     // 简谐运动
     double ri = ri0;
     const double A = 0.8*ri0; 
     double w = 3.1416;
     //匀速膨胀
-    const double v =0.01* v0; 
+    const double v =1* v0; 
     double k0 = 1e4;
 
 
@@ -43,10 +43,10 @@ int main() {
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro, m);
     //std::vector<Particle> particles0 = particles;
     std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid;
-    std::string folderPath = "D:/code/multibody-simulation-for-LJLattice/Data/expansion/"; // 指定文件夹
+    std::string folderPath = "D:/Research Data/Data/expansion/"; // 指定文件夹
     //std::string fileName = folderPath + "Cell-test2,v=1v0,t=0.5,ri=5,ro=15,t_t=5,dt=0.0001.csv "; 
     //std::string fileName = folderPath + "test, cell, static, constrain, t_interval=0.01,dt=0.0001,ri=5,ro=15,t_total=2.csv ";
-    std::string fileName = folderPath + "elastic bound,cell,ri=5,ro=20,v=0.01,t_tot=1000,interval=5,k=1e4,dt=0.002.csv";  
+    std::string fileName = folderPath + "elastic bound,cell,ri=5,ro=20,v=1,t_tot=10,interval=0.05,k=1e4,dt=0.0004.csv";  
     
     Energy energy; // 创建 Energy 实例
 
@@ -55,10 +55,10 @@ int main() {
     }
 
     // 模拟参数
-    double dt = 0.001*t0;
+    double dt = 0.0004*t0;
     double ti = 0.5*t0;
     double t = 0.0;
-    double intervals = 5*t0; //保存数据的时间间隔
+    double intervals = 0.05*t0; //保存数据的时间间隔
     double t_interval = 0.0;
 
 

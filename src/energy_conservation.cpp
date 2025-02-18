@@ -41,7 +41,7 @@ int main() {
     // form particle triangular distribution
     std::vector<Particle> particles = generateTriangularLattice(rows, cols, distance, ri, ro,m);
     //std::vector<Particle> particles0 = particles;
-    std::string folderPath = "D:/code/multibody-simulation-for-LJLattice/Data/energy_conservation/"; // 指定文件夹
+    std::string folderPath = "D:/Research Data/Data/energy_conservation/"; // 指定文件夹
     //std::string fileName = folderPath + "Modified,v=1v0,t=0.5,ri=5,ro=15,t_t=0.001,dt=0.0005.csv "; 
     std::string fileName = folderPath + "conservation ,ri=5,ro=15,dt=0.0001,t=1,v=0.5,t_tot=5,interval=0.1.csv "; 
     Energy energy; // 创建 Energy 实例
@@ -92,7 +92,7 @@ int main() {
         if ( t>= t_interval ) {
             t_interval+= intervals;
             energy.reset();
-            E_t(particles, energy, e0,s0, ri, k0);
+            E_t(particles, energy, e0,s0, ri, ro, k0);
             saveToCSV(particles, energy,t ,fileName, t!=0.0);
         }
     }

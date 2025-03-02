@@ -3,13 +3,17 @@
 #include "Vec2.h"
 #include <algorithm>
 
-
+/*
+Verlet method and to fix the particles in the circles, determine the external particle as a state
+fix the state and no force apply on it
+*/
 class Particle {
 public:
     Vec2 position;         // 当前的位置
     Vec2 previousPosition; // 上一个位置
     Vec2 acceleration;     // 当前加速度
     Vec2 velocity;
+    Vec2 delta_pos;
     //Vec2 newVelocity; 
     //double error;
     double mass;
@@ -26,17 +30,19 @@ public:
         acceleration += force * (1.0f / mass); // 计算加速度
     }
 
-    void update(double dt) {
-        // 使用 Verlet 方法更新位置
-        //error = 0.0;
-        //radius = position.length();
-        Vec2 newPosition = position*2 - previousPosition-acceleration*(-dt*dt);
+    void update(double dt,double lambda) {
+        // use verlet method to update positions
+        // Introduce kf
+        // lambda = kf*dt/m --> dissipative part
+
+        Vec2 newPosition = position*(2.0-lambda) - previousPosition*(1.0-lambda)-acceleration*(-dt*dt);
         
         // 更新上一个位置和当前位置信息
         previousPosition = position;
         position = newPosition;
+        delta_pos = position-previousPosition;
         //velocity += acceleration*dt;
-        velocity = (position-previousPosition)*(1.0/dt);
+        velocity = (delta_pos)*(1.0/dt);
         
         
         // 重置加速度
@@ -62,14 +68,7 @@ public:
             out_state = false;
         }
     }
-    // void Ela_state(double ri, double length){
-    //     if (length < ri){
-    //         ela_state = true;
-    //     }
-    //     else{
-    //         ela_state = false;
-    //     }
-    // }
+    
     
 };
 #endif 

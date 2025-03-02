@@ -11,9 +11,10 @@ class Energy {
 public:
     double totalEp; // 总势能
     double totalEk; // 总动能
+    double max_delta_pos;
     int out_state; //判断是否有粒子逃逸
 
-    Energy() : totalEp(0.0f), totalEk(0.0f) {} // 初始化
+    Energy() : totalEp(0.0), totalEk(0.0), max_delta_pos(0.0) {} // 初始化
 
     void reset() {
         // 重置能量值
@@ -90,14 +91,17 @@ void E_t(std::vector<Particle>& particles,  Energy& energy, const double e0, con
         //double length = particles[i].position.length();
         if (particles[i].radius<ri){
             Ep_t += 0.5*k0*(ri-particles[i].radius)*(ri-particles[i].radius);
+            //energy.max_delta_pos = std::max(energy.max_delta_pos,particles[i].delta_pos.length());
         }
-        else {
-            Ep_t +=0.0;
-        }
+        // else {
+        //     Ep_t +=0.0;
+        // }
+        // Judge whether the particles have escape
         if (particles[i].radius > ro+6.0){
             out_state +=1;
 
         }
+        // Only calculate the interacations in the system
         for (size_t j = i + 1; j < numParticles; ++j) {           
                 if (particles[i].state==false && particles[j].state==false )
             {

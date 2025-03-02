@@ -38,6 +38,7 @@ int main() {
     //匀速膨胀
     const double v =10* v0; 
     double k0 = 1e4;
+    double kf = 10.0;
 
 
     
@@ -76,7 +77,7 @@ int main() {
         if (t<= ti){
             ri = ri0 + v*t;
             //constrainParticles(particles, ri);
-            simulate_triangular_cell(particles, energy, dt, e0, s0,k0,ro,ri,grid);
+            simulate_triangular_cell(particles, energy, dt, e0, s0,k0,kf,m,ro,ri,grid);
             //constrainParticles(particles, ri,ro);
             
         }
@@ -84,7 +85,7 @@ int main() {
             //double ri = 7.0;
             //constrainParticles(particles, ri);
             ri = 15.0;
-            simulate_triangular_cell(particles,  energy, dt,  e0, s0,k0,ro,15.0,grid);
+            simulate_triangular_cell(particles,  energy, dt,  e0, s0,k0,kf,m,ro,15.0,grid);
             
         }
         

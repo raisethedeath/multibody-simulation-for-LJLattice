@@ -14,7 +14,7 @@
 
 
 
-void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy, double dt, const double e0, const double s0, double k0,
+void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy, double dt, const double e0, const double s0, double k0, double lambda,
                                    double ro, double ri, std::unordered_map<std::pair<int, int>, std::vector<int>, boost::hash<std::pair<int, int>>> grid) {
     
     double cutoffRadius = 3.0*pow(2, 1.0/6.0) * s0;
@@ -121,9 +121,10 @@ void simulate_triangular_cell(std::vector<Particle>& particles,  Energy& energy,
 
     // 更新粒子位置
     for (auto& particle : particles) {
-        particle.update(dt);
+        particle.update(dt,lambda);
+        energy.max_delta_pos = std::max(particle.delta_pos.length(),energy.max_delta_pos);
     }
-    //adpaptive_verlet(particles, dt,tolerence, dt_min, dt_max);
+    
 }
 
 #endif

@@ -27,6 +27,10 @@ struct Vec2 {
         return std::sqrt(x * x + y * y);
     }
 
+    double square() const{
+        return (x * x + y *y);
+    }
+
     Vec2 normalized() const {
         double len = length();
         return (len > 0) ? Vec2{x / len, y / len} : Vec2{0, 0};
